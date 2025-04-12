@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SWIFT Codes API Exercise</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        }
+        form, .result {
+        margin-bottom: 20px;
+        }
+        label {
+        display: block;
+        margin-bottom: 8px;
+        }
+        input, button {
+        padding: 8px;
+        font-size: 1rem;
+        }
+    </style>
+    </head>
+    <body>
+    <h1>SWIFT Codes API Exercise</h1>
+    <p>This is a interface to work with the SWIFT Codes API.</p>
+    
+    <h2>Get SWIFT Code Details</h2>
+    <form id="lookupForm">
+        <label for="swiftInput">Enter SWIFT Code:</label>
+        <input type="text" id="swiftInput" name="swiftCode" placeholder="e.g., ALPHAALTRXXX" required />
+        <button type="submit">Show</button>
+    </form>
+    
+    <div class="result" id="lookupResult"></div>
+
+    <script>
+        document.getElementById('lookupForm').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const swiftCode = document.getElementById('swiftInput').value.trim();
+        const resultDiv = document.getElementById('lookupResult');
+        
+        try {
+            const response = await fetch(`/v1/swift-codes/${swiftCode}`);
+            if (!response.ok) {
+            resultDiv.innerHTML = `<p style="color: red;">Error: ${response.status} ${response.statusText}</p>`;
+            return;
+            }
+            const data = await response.json();
+            resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        } catch (err) {
+            resultDiv.innerHTML = `<p style="color: red;">Error: ${err.message}</p>`;
+        }
+        });
+    </script>
+</body>
+</html>
