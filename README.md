@@ -25,6 +25,9 @@ This project implements a REST API for parsing, storing, and retrieving SWIFT co
   - **DELETE /v1/swift-codes/{swiftCode}**  
     Deletes a SWIFT code entry by code.
 
+ **HTML Front-End:**  
+  A simple HTML page is provided (in the `public` folder) for basic interaction with the API.
+
 ## Development
 
 ### Prerequisites
@@ -44,6 +47,16 @@ This project implements a REST API for parsing, storing, and retrieving SWIFT co
     npm run dev
     ```
 
+### Building and Running in Docker
+
+1. Build the Docker image:
+    ```bash
+    docker build -t swift-codes-api .
+    ```
+2. Run the container:
+    ```bash
+    docker run -p 8080:8080 swift-codes-api
+    ```
 The API will be accessible at `http://localhost:8080`.
 
 ## Testing
